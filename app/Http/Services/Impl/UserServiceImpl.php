@@ -10,9 +10,11 @@ use App\Repositories\OwnerRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 
 class UserServiceImpl implements UserService
 {
@@ -84,6 +86,18 @@ class UserServiceImpl implements UserService
         });
     }
 
+    public function userVerifyOtpRegistration(Request $request): ?string
+    {
+        $user = $this->findUserByEmail($request->email);
+        $this->validateOtp($request, $user);
+
+        $this->verifyUserEmail($user);
+        $this->deleteOtpFromRedis($request->email);
+
+        $this->loginUser($user);
+        return $this->generateAuthToken($user, 'verify_register');
+    }
+
     private function findOrCreateTenant(Request $request): User
     {
         return $this->userRepository->findUserDetailWithTrash($request->email, $request->phone_number) ?: new User([
@@ -121,5 +135,47 @@ class UserServiceImpl implements UserService
     {
         $userDetail = $this->userRepository->findUserDetail($user->id, $user->email, $user->phone_number);
         SendOtpEmailJob::dispatch($userDetail);
+    }
+
+    private function findUserByEmail(string $email): User
+    {
+        return $this->userRepository->findUserDetail("", $email, "") ?:
+            throw new ApiException("User not found", 400);
+    }
+
+    private function validateOtp(Request $request, User $user): void
+    {
+        $otpKey = $this->generateOtpKey($user->email);
+        $storedOtp = Redis::get($otpKey);
+
+        if ($request->otp !== $storedOtp) {
+            throw new ApiException("OTP doesn't valid", 400);
+        }
+    }
+
+    private function generateOtpKey(string $email): string
+    {
+        return "OTP-email_" . $email;
+    }
+
+    private function verifyUserEmail(User $user): void
+    {
+        $this->userRepository->verifyEmail($user);
+    }
+
+    private function deleteOtpFromRedis(string $email): void
+    {
+        $otpKey = $this->generateOtpKey($email);
+        Redis::del($otpKey);
+    }
+
+    private function loginUser(User $user): void
+    {
+        Auth::login($user, true);
+    }
+
+    private function generateAuthToken($user, $token_name)
+    {
+        return $user->createToken($token_name, ['*'], now()->addWeek())->plainTextToken;
     }
 }

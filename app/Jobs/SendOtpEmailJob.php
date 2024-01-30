@@ -22,7 +22,6 @@ class SendOtpEmailJob implements ShouldQueue
         $this->user = $user;
     }
 
-
     public function handle()
     {
         $otp = $this->generateOTP();
@@ -31,7 +30,7 @@ class SendOtpEmailJob implements ShouldQueue
         Mail::to($this->user->email)->send(new OtpMail($this->user, $otp));
 
         // save into rediss
-        $this->saveIntoRedis($otp);
+        $this->saveOtpIntoRedis($otp);
     }
 
     private function generateOTP($length = 6)
@@ -53,7 +52,7 @@ class SendOtpEmailJob implements ShouldQueue
         return $otp;
     }
 
-    private function saveIntoRedis($otp)
+    private function saveOtpIntoRedis($otp)
     {
         $key = "OTP-email_" . $this->user->email;
         $expTime = 300;

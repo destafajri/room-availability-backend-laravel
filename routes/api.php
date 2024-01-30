@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\UserAuthController;
+use App\Http\Controllers\Auth\UserVerifyOtpController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 
 /*
@@ -20,3 +22,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register/owner', [UserAuthController::class, 'ownerRegister']);
 Route::post('/register/tenant/prime', [UserAuthController::class, 'tenantPrimeRegister']);
 Route::post('/register/tenant/regular', [UserAuthController::class, 'tenantRegularRegister']);
+Route::post('/otp/verify', UserVerifyOtpController::class);
+
