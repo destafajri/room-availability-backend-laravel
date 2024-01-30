@@ -108,6 +108,12 @@ class UserServiceImpl implements UserService
         return $this->generateAuthToken($user, 'login_token');
     }
 
+    public function userLogout(Request $request): void
+    {
+        $this->revokeUserAccessTokens($request);
+        $this->clearRememberTokenIfExists($request->user());
+    }
+
     private function findOrCreateTenant(Request $request): User
     {
         return $this->userRepository->findUserDetailWithTrash($request->email, $request->phone_number) ?: new User([
@@ -207,5 +213,20 @@ class UserServiceImpl implements UserService
     private function generateAuthToken($user, $token_name)
     {
         return $user->createToken($token_name, ['*'], now()->addWeek())->plainTextToken;
+    }
+
+    private function revokeUserAccessTokens(Request $request): void
+    {
+        $request->user()->currentAccessToken()->delete();
+        // Consider deleting all tokens for thorough logout:
+        // auth()->user()->tokens()->delete();
+    }
+
+    private function clearRememberTokenIfExists(User $user): void
+    {
+        if ($user->remember_token) {
+            $user->remember_token = null;
+            $user->save();
+        }
     }
 }

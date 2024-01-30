@@ -11,4 +11,5 @@ interface UserService
     public function tenantRegularRegister(Request $request): void;
     public function userVerifyOtpRegistration(Request $request): ?string;
     public function userLogin(Request $request): ?string;
+    public function userLogout(Request $request): void;
 }

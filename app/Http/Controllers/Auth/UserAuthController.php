@@ -8,6 +8,7 @@ use App\Http\Requests\Auth\TenantRegisterRequest;
 use App\Http\Requests\Auth\UserLoginRequest;
 use App\Http\Services\UserService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class UserAuthController extends Controller
 {
@@ -54,6 +55,15 @@ class UserAuthController extends Controller
             'data' => [
                 'token' => $token
             ]
+        ]);
+    }
+
+    public function logout(Request $request): JsonResponse
+    {
+        $this->userService->userLogout($request);
+
+        return response()->json([
+            'message' => 'Logout Success'
         ]);
     }
 }
