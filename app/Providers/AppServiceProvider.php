@@ -27,6 +27,11 @@ class AppServiceProvider extends ServiceProvider
 			\App\Repositories\OwnerRepository::class,
 			\App\Repositories\Impl\OwnerRepositoryImpl::class
 		);
+
+		$this->app->bind(
+			\App\Repositories\TenantRepository::class,
+			\App\Repositories\Impl\TenantRepositoryImpl::class
+		);
     }
 
     /**
