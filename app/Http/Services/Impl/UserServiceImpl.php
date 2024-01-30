@@ -98,6 +98,16 @@ class UserServiceImpl implements UserService
         return $this->generateAuthToken($user, 'verify_register');
     }
 
+    public function userLogin(Request $request): ?string
+    {
+        $user = $this->findUserByPhoneNumber($request->phone_number);
+        $this->validatePassword($user, $request->password);
+        $this->validateUserIsVerified($user);
+
+        $this->loginUser($user);
+        return $this->generateAuthToken($user, 'login_token');
+    }
+
     private function findOrCreateTenant(Request $request): User
     {
         return $this->userRepository->findUserDetailWithTrash($request->email, $request->phone_number) ?: new User([
@@ -120,6 +130,18 @@ class UserServiceImpl implements UserService
         ]);
     }
 
+    private function findUserByEmail(string $email): User
+    {
+        return $this->userRepository->findUserDetail("", $email, "") ?:
+            throw new ApiException("User not found", 400);
+    }
+
+    private function findUserByPhoneNumber(string $phone_number): User
+    {
+        return $this->userRepository->findUserDetail("", "", $phone_number) ?:
+            throw new ApiException("User not found", 400);
+    }
+
     private function validateUserRegistration(User $user): void
     {
         if ($this->userRepository->isUserRegistered($user)) {
@@ -131,16 +153,11 @@ class UserServiceImpl implements UserService
         }
     }
 
-    private function sendRegistrationEmail(User $user): void
+    private function validatePassword(User $user, string $password): void
     {
-        $userDetail = $this->userRepository->findUserDetail($user->id, $user->email, $user->phone_number);
-        SendOtpEmailJob::dispatch($userDetail);
-    }
-
-    private function findUserByEmail(string $email): User
-    {
-        return $this->userRepository->findUserDetail("", $email, "") ?:
-            throw new ApiException("User not found", 400);
+        if (!$user || !Hash::check($password, $user->password)) {
+            throw new ApiException("Invalid credentials", 401);
+        }
     }
 
     private function validateOtp(Request $request, User $user): void
@@ -153,14 +170,27 @@ class UserServiceImpl implements UserService
         }
     }
 
-    private function generateOtpKey(string $email): string
+    private function validateUserIsVerified(User $user): void
     {
-        return "OTP-email_" . $email;
+        if (!$user->email_verified_at) {
+            throw new ApiException("User hasn't verified email", 401);
+        }
     }
 
     private function verifyUserEmail(User $user): void
     {
         $this->userRepository->verifyEmail($user);
+    }
+
+    private function sendRegistrationEmail(User $user): void
+    {
+        $userDetail = $this->userRepository->findUserDetail($user->id, $user->email, $user->phone_number);
+        SendOtpEmailJob::dispatch($userDetail);
+    }
+
+    private function generateOtpKey(string $email): string
+    {
+        return "OTP-email_" . $email;
     }
 
     private function deleteOtpFromRedis(string $email): void

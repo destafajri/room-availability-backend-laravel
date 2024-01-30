@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\OwnerRegisterRequest;
 use App\Http\Requests\Auth\TenantRegisterRequest;
+use App\Http\Requests\Auth\UserLoginRequest;
 use App\Http\Services\UserService;
 use Illuminate\Http\JsonResponse;
 
@@ -42,5 +43,17 @@ class UserAuthController extends Controller
         return response()->json([
             'message' => 'Success request tenant regular register'
         ], 200);
+    }
+
+    public function login(UserLoginRequest $request): JsonResponse
+    {
+        $token = $this->userService->userLogin($request);
+
+        return response()->json([
+            'message' => 'Login Success',
+            'data' => [
+                'token' => $token
+            ]
+        ]);
     }
 }
