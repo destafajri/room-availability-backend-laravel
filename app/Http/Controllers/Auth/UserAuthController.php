@@ -34,4 +34,13 @@ class UserAuthController extends Controller
             'message' => 'Success request tenant prime register'
         ], 200);
     }
+
+    public function tenantRegularRegister(TenantRegisterRequest $request): JsonResponse
+    {
+        $this->userService->tenantRegularRegister($request);
+
+        return response()->json([
+            'message' => 'Success request tenant regular register'
+        ], 200);
+    }
 }

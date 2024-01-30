@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 // public routes
 Route::post('/register/owner', [UserAuthController::class, 'ownerRegister']);
 Route::post('/register/tenant/prime', [UserAuthController::class, 'tenantPrimeRegister']);
+Route::post('/register/tenant/regular', [UserAuthController::class, 'tenantRegularRegister']);

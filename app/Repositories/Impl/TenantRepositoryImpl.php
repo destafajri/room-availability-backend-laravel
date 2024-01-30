@@ -17,4 +17,13 @@ class TenantRepositoryImpl implements TenantRepository
         $tenant->credit = 40;
         $tenant->save();
     }
+
+    public function saveNewTenantRegular(User $user): void
+    {
+        $tenant = new Tenant();
+        $tenant->user_id = $user->id;
+        $tenant->is_prime = false;
+        $tenant->credit = 20;
+        $tenant->save();
+    }
 }

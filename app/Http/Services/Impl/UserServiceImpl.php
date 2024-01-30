@@ -66,6 +66,24 @@ class UserServiceImpl implements UserService
         });
     }
 
+    public function tenantRegularRegister(Request $request): void
+    {
+        DB::transaction(function () use ($request) {
+            try {
+                $user = $this->findOrCreateTenant($request);
+                $this->validateUserRegistration($user);
+
+                $this->userRepository->registerUser($user);
+                $this->tenantRepository->saveNewTenantRegular($user);
+
+                $this->sendRegistrationEmail($user);
+            } catch (\PDOException $e) {
+                Log::info($e);
+                throw new ApiException('Error when creating new tenant regular', 500);
+            }
+        });
+    }
+
     private function findOrCreateTenant(Request $request): User
     {
         return $this->userRepository->findUserDetailWithTrash($request->email, $request->phone_number) ?: new User([

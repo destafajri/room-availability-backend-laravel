@@ -8,4 +8,5 @@ interface UserService
 {
     public function ownerRegister(Request $request): void;
     public function tenantPrimeRegister(Request $request): void;
+    public function tenantRegularRegister(Request $request): void;
 }
