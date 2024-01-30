@@ -1,0 +1,10 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Http\Services\{{ class }};
+
+class {{ class }}Impl implements {{ class }}
+{
+
+}

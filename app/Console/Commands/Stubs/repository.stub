@@ -1,0 +1,11 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Repositories\{{ class }};
+use Illuminate\Support\Facades\DB;
+
+class {{ class }}Impl implements {{ class }}
+{
+
+}
