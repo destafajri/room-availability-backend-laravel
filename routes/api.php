@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\UserAuthController;
+use App\Http\Controllers\Auth\UserVerifyOtpController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// public routes
+Route::post('/register/owner', [UserAuthController::class, 'ownerRegister']);
+Route::post('/register/tenant/prime', [UserAuthController::class, 'tenantPrimeRegister']);
+Route::post('/register/tenant/regular', [UserAuthController::class, 'tenantRegularRegister']);
+Route::post('/login', [UserAuthController::class, 'login']);
+Route::middleware('auth:sanctum')->post('/logout', [UserAuthController::class, 'logout']);
+Route::post('/otp/verify', UserVerifyOtpController::class);
+
