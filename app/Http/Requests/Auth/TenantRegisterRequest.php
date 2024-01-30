@@ -25,7 +25,7 @@ class TenantRegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'min:3', 'max:100'],
-            'phone_number' => ['required', 'regex:/^[0-9()\-+\s]+$/', 'min:8', 'max:14'],
+            'phone_number' => ['required', 'regex:/^(08)\d+$/', 'min:8', 'max:14'],
             'email' => ['required', 'email'],
             'password' => ['required', 'min:6', 'max:50']
         ];
