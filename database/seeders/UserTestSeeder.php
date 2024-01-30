@@ -48,5 +48,22 @@ class UserTestSeeder extends Seeder
         $tenantPrime->is_prime = true;
         $tenantPrime->credit = 40;
         $tenantPrime->save();
+
+        // tenant regular
+        $user = new User();
+        $tenantRegular = new Tenant();
+        $user->name = 'tenant regular tester feature';
+        $user->phone_number = '081197878842';
+        $user->email = 'tenant_regular_tester_seeder@gmail.com';
+        $user->role_id = 2;
+        $user->password = Hash::make('123456');
+        $user->email_verified_at = Carbon::now();
+        $user->save();
+
+        $user = User::withTrashed()->where('email', $user->email)->first();
+        $tenantRegular->user_id = $user->id;
+        $tenantRegular->is_prime = false;
+        $tenantRegular->credit = 20;
+        $tenantRegular->save();
     }
 }

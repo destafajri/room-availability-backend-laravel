@@ -27,6 +27,7 @@ abstract class TestCase extends BaseTestCase
         // delete user from seeder
         $owner = User::withTrashed()->where('email', 'owner_tester_seeder@gmail.com')->first();
         $tenantPrime = User::withTrashed()->where('email', 'tenant_prime_tester_seeder@gmail.com')->first();
+        $tenantRegular = User::withTrashed()->where('email', 'tenant_regular_tester_seeder@gmail.com')->first();
         if ($owner) {
             DB::delete("DELETE FROM owners where user_id = ?", [$owner->id]);
             DB::delete("DELETE FROM users where id = ?", [$owner->id]);
@@ -34,6 +35,10 @@ abstract class TestCase extends BaseTestCase
         if ($tenantPrime) {
             DB::delete("DELETE FROM tenants where user_id = ?", [$tenantPrime->id]);
             DB::delete("DELETE FROM users where id = ?", [$tenantPrime->id]);
+        }
+        if ($tenantRegular) {
+            DB::delete("DELETE FROM tenants where user_id = ?", [$tenantRegular->id]);
+            DB::delete("DELETE FROM users where id = ?", [$tenantRegular->id]);
         }
 
         $this->seed(UserTestSeeder::class);
