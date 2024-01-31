@@ -4,11 +4,21 @@ namespace App\Repositories\Impl;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class UserRepositoryImpl implements UserRepository
 {
+    public function currentAuthUser(Request $request): User
+    {
+        $tokenId = $request->bearerToken(); // Using Sanctum's request helper
+        $token = PersonalAccessToken::findToken($tokenId);
+        $userId = $token->tokenable_id;
+        return User::find($userId);
+    }
+
     public function isUserRegistered(User $user): bool
     {
         // checking if user already verified and registered
