@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Kost;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Kost\CreateKostByOwnerRequest;
 use App\Http\Requests\Kost\GetListKostRequest;
+use App\Http\Requests\Kost\UpdateKostByOwnerRequest;
 use App\Http\Services\KostService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -41,5 +42,13 @@ class KostController extends Controller
     public function detailKost(Request $request): JsonResource
     {
         return $this->kostService->detailKost($request);
+    }
+
+    public function updateKostByOwner(UpdateKostByOwnerRequest $request): JsonResponse
+    {
+        $this->kostService->updateKostByOwner($request);
+        return response()->json([
+            "message" => "success update kost"
+        ], 200);
     }
 }

@@ -12,4 +12,9 @@ class KostFacilityRepositoryImpl implements KostFacilityRepository
     {
         $kost->facilities()->attach($facilities);
     }
+
+    public function detachAllKostFacilities(Kost $kost): void
+    {
+        $kost->facilities()->detach();
+    }
 }

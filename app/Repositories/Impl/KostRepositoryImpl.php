@@ -12,6 +12,11 @@ class KostRepositoryImpl implements KostRepository
 {
     public function saveNewKost(Kost $kost): void
     {
+        $kost->saveOrFail();
+    }
+
+    public function updateKost(Kost $kost): void
+    {
         $kost->save();
     }
 

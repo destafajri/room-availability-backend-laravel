@@ -5,6 +5,7 @@ namespace App\Http\Services\Impl;
 use App\Exceptions\ApiException;
 use App\Http\Requests\Kost\CreateKostByOwnerRequest;
 use App\Http\Requests\Kost\GetListKostRequest;
+use App\Http\Requests\Kost\UpdateKostByOwnerRequest;
 use App\Http\Resources\Kost\KostCollection;
 use App\Http\Resources\Kost\KostResource;
 use App\Http\Services\KostService;
@@ -69,6 +70,27 @@ class KostServiceImpl implements KostService
         return new KostResource($kost);
     }
 
+    public function updateKostByOwner(UpdateKostByOwnerRequest $request): void
+    {
+        DB::transaction(function () use ($request) {
+            try {
+                $id = ctype_digit($request->id)
+                    ? $request->id
+                    : throw new ApiException('Id Format Should be an Integer', 400);
+                $kost = $this->kostRepository->findKostDetailById($id);
+                $owner = $this->getCurrentAuthOwner($request);
+                $this->ensureOwnership($kost, $owner);
+                $this->updateKostByOwnerModel($request, $kost);
+                if (!is_null($request->facilities)) {
+                    $this->updateKostFacilities($kost, $request->facilities);
+                }
+            } catch (\PDOException $e) {
+                Log::info($e);
+                throw new ApiException('Error when updating kost', 500);
+            }
+        });
+    }
+
     private function getCurrentAuthOwner(Request $request): Owner
     {
         $user = $this->userRepository->currentAuthUser($request);
@@ -89,5 +111,32 @@ class KostServiceImpl implements KostService
         $kost->room_available = $request->room_available;
         $this->kostRepository->saveNewKost($kost);
         return $kost;
+    }
+
+    private function updateKostByOwnerModel(Request $request, Kost $kost): Kost
+    {
+        $kost->kost_name = $request->kost_name ?: $kost->kost_name;
+        $kost->price = $request->price ?: $kost->price;
+        $kost->kost_gender_id = $request->gender_id ?: $kost->kost_gender_id;
+        $kost->area_id = $request->area_id ?: $kost->area_id;
+        $kost->address = $request->address ?: $kost->address;
+        $kost->description = $request->description ?: $kost->description;
+        $kost->room_total = $request->room_total ?: $kost->room_total;
+        $kost->room_available = $request->room_available ?: $kost->room_available;
+        $this->kostRepository->updateKost($kost);
+        return $kost;
+    }
+
+    private function updateKostFacilities(Kost $kost, array $facilities): void
+    {
+        $this->kostFacilityRepository->detachAllKostFacilities($kost);
+        $this->kostFacilityRepository->attachKostFacilities($kost, $facilities);
+    }
+
+    private function ensureOwnership(Kost $kost, Owner $owner): void
+    {
+        if ($kost->owner_id != $owner->id) {
+            throw new ApiException("You're Not Allowed to edit this kost", 403);
+        }
     }
 }

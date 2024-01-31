@@ -35,5 +35,6 @@ Route::get('/kost/{id}', [KostController::class, 'detailKost']);
 Route::group(['middleware' => ['auth:sanctum', 'checkRole:OWNER']], function () {
     Route::post('/owner/kost', [KostController::class, 'createKostByOwner']);
     Route::get('/owner/kost', [KostController::class, 'listKostByOwner']);
+    Route::put('/owner/kost/{id}', [KostController::class, 'updateKostByOwner']);
 });
 
