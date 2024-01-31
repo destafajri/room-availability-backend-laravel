@@ -18,7 +18,7 @@ class KostResource extends JsonResource
             'id' => $this->id,
             "kost_name" => $this->kost_name,
             "owner" => $this->owner->user->name,
-            'price_duration' => $this->price,
+            'price' => $this->price,
             'address' => $this->address,
             'description' => $this->description,
             'room_total' => $this->room_total,
