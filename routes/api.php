@@ -31,5 +31,6 @@ Route::post('/otp/verify', UserVerifyOtpController::class);
 // protected owner route
 Route::group(['middleware' => ['auth:sanctum', 'checkRole:OWNER']], function () {
     Route::post('/kost/owner', [KostController::class, 'createKostByOwner']);
+    Route::get('/kost/owner', [KostController::class, 'listKostByOwner']);
 });
 
