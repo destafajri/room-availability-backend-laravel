@@ -13,4 +13,5 @@ interface KostRepository
     public function findListKostByOwner(Request $request, Owner $owner): LengthAwarePaginator;
     public function findAllKostListings(Request $request): LengthAwarePaginator;
     public function findKostListingsByIds(Request $request): LengthAwarePaginator;
+    public function findKostDetailById(int $id): Kost;
 }

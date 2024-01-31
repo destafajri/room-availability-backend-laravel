@@ -6,6 +6,7 @@ use App\Exceptions\ApiException;
 use App\Http\Requests\Kost\CreateKostByOwnerRequest;
 use App\Http\Requests\Kost\GetListKostRequest;
 use App\Http\Resources\Kost\KostCollection;
+use App\Http\Resources\Kost\KostResource;
 use App\Http\Services\KostService;
 use App\Models\Kost;
 use App\Models\Owner;
@@ -60,6 +61,13 @@ class KostServiceImpl implements KostService
             : $this->kostRepository->findKostListingsByIds($request);
         return new KostCollection($kost);
     }
+
+    public function detailKost(Request $request): KostResource
+    {
+        $kost = $this->kostRepository->findKostDetailById($request->id);
+        return new KostResource($kost);
+    }
+
 
     private function getCurrentAuthOwner(Request $request): Owner
     {

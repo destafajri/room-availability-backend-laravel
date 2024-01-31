@@ -52,4 +52,10 @@ class KostRepositoryImpl implements KostRepository
             ->orderBy($sortBy, $sortOrder)
             ->paginate($perPage, ['*'], 'page', $page);
     }
+
+    public function findKostDetailById(int $id): Kost
+    {
+        return Kost::with('owner', 'kostGender', 'area', 'facilities')
+            ->findOrFail($id);
+    }
 }

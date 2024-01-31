@@ -37,4 +37,9 @@ class KostController extends Controller
     {
         return $this->kostService->listKost($request);
     }
+
+    public function detailKost(Request $request): JsonResource
+    {
+        return $this->kostService->detailKost($request);
+    }
 }

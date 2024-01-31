@@ -23,7 +23,7 @@ class KostResource extends JsonResource
             'description' => $this->description,
             'room_total' => $this->room_total,
             'room_available' => $this->room_available,
-            'is_verified' => $this->is_verified,
+            'is_active' => $this->is_active,
             'kost_gender' => $this->kostGender->gender_type,
             'area' => $this->area->area_name,
             'facilities' => $this->facilities->pluck('facility_name'),
