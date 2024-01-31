@@ -2,8 +2,6 @@
 
 namespace Tests;
 
-use App\Models\FacilityKost;
-use App\Models\Kost;
 use App\Models\User;
 use Database\Seeders\UserTestSeeder;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -31,9 +29,6 @@ abstract class TestCase extends BaseTestCase
         $userTenantPrime = User::withTrashed()->where('email', 'tenant_prime_tester_seeder@gmail.com')->first();
         $userTenantRegular = User::withTrashed()->where('email', 'tenant_regular_tester_seeder@gmail.com')->first();
         if ($userOwner) {
-            $kostIds = Kost::where('owner_id', $userOwner->owner->id)->get('id');
-            FacilityKost::whereIn('kost_id', $kostIds)->delete();
-            Kost::where('owner_id', $userOwner->owner->id)->delete();
             $userOwner->owner->delete();
             $userOwner->forceDelete();
         }
