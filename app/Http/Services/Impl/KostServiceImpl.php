@@ -64,10 +64,10 @@ class KostServiceImpl implements KostService
 
     public function detailKost(Request $request): KostResource
     {
-        $kost = $this->kostRepository->findKostDetailById($request->id);
+        $id = ctype_digit($request->id) ? $request->id : throw new ApiException('Id Format Should be an Integer', 400);
+        $kost = $this->kostRepository->findKostDetailById($id);
         return new KostResource($kost);
     }
-
 
     private function getCurrentAuthOwner(Request $request): Owner
     {
