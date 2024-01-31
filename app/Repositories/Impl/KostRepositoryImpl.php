@@ -20,6 +20,11 @@ class KostRepositoryImpl implements KostRepository
         $kost->save();
     }
 
+    public function deleteKost(Kost $kost): void
+    {
+        $kost->deleteOrFail();
+    }
+
     public function findListKostByOwner(Request $request, Owner $owner): LengthAwarePaginator
     {
         $perPage = $request->query('per_page', 15); // Default to 15 per page

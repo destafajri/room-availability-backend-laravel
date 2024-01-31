@@ -91,6 +91,25 @@ class KostServiceImpl implements KostService
         });
     }
 
+    public function deleteKostByOwner(Request $request): void
+    {
+        DB::transaction(function () use ($request) {
+            try {
+                $id = ctype_digit($request->id)
+                    ? $request->id
+                    : throw new ApiException('Id Format Should be an Integer', 400);
+                $kost = $this->kostRepository->findKostDetailById($id);
+                $owner = $this->getCurrentAuthOwner($request);
+                $this->ensureOwnership($kost, $owner);
+                $this->kostRepository->deleteKost($kost);
+            } catch (\PDOException $e) {
+                Log::info($e);
+                throw new ApiException('Error when delete kost', 500);
+            }
+        });
+    }
+
+
     private function getCurrentAuthOwner(Request $request): Owner
     {
         $user = $this->userRepository->currentAuthUser($request);

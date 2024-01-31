@@ -16,4 +16,5 @@ interface KostService
     public function listKost(GetListKostRequest $getListKostRequest): KostCollection;
     public function detailKost(Request $request): KostResource;
     public function updateKostByOwner(UpdateKostByOwnerRequest $updateKostByOwnerRequest): void;
+    public function deleteKostByOwner(Request $request): void;
 }

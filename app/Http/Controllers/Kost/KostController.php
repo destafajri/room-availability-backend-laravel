@@ -51,4 +51,12 @@ class KostController extends Controller
             "message" => "success update kost"
         ], 200);
     }
+
+    public function deleteKostByOwner(Request $request): JsonResponse
+    {
+        $this->kostService->deleteKostByOwner($request);
+        return response()->json([
+            "message" => "success delete kost"
+        ], 200);
+    }
 }
