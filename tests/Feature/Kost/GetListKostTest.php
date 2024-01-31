@@ -16,7 +16,7 @@ class GetListKostTest extends TestCase
             'password' => '123456'
         ]);
 
-        $this->post('/api/kost/owner', [
+        $this->post('/api/owner/kost', [
             'kost_name' => 'kost feature testing',
             'facilities' => [1, 3, 2],
             'price' => 850000,
@@ -31,7 +31,7 @@ class GetListKostTest extends TestCase
         ]);
 
         // act
-        $response = $this->get('/api/kost/owner?per_page=2', [
+        $response = $this->get('/api/owner/kost?per_page=2', [
             'Authorization' => 'Bearer ' . $responseLogin['data']['token']
         ]);
 
@@ -64,7 +64,7 @@ class GetListKostTest extends TestCase
         ]);
 
         // act
-        $response = $this->get('/api/kost/owner?per_page=2', [
+        $response = $this->get('/api/owner/kost?per_page=2', [
             'Authorization' => 'Bearer ' . $responseLogin['data']['token']
         ]);
 
@@ -79,7 +79,7 @@ class GetListKostTest extends TestCase
             'password' => '123456'
         ]);
 
-        $this->post('/api/kost/owner', [
+        $this->post('/api/owner/kost', [
             'kost_name' => 'kost feature testing',
             'facilities' => [1, 3, 2],
             'price' => 850000,
@@ -112,7 +112,7 @@ class GetListKostTest extends TestCase
             'password' => '123456'
         ]);
 
-        $this->post('/api/kost/owner', [
+        $this->post('/api/owner/kost', [
             'kost_name' => 'kost feature testing',
             'facilities' => [1, 3, 2],
             'price' => 850000,
@@ -125,7 +125,7 @@ class GetListKostTest extends TestCase
         ], [
             'Authorization' => 'Bearer ' . $responseLogin['data']['token']
         ]);
-        $responseKostOwner = $this->get('/api/kost/owner?per_page=2', [
+        $responseKostOwner = $this->get('/api/owner/kost?per_page=2', [
             'Authorization' => 'Bearer ' . $responseLogin['data']['token']
         ]);
         $ids = $responseKostOwner->json('data.*.id');

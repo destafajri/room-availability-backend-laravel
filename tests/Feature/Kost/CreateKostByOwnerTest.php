@@ -17,7 +17,7 @@ class CreateKostByOwnerTest extends TestCase
         ]);
 
         // act
-        $response = $this->post('/api/kost/owner', [
+        $response = $this->post('/api/owner/kost', [
             'kost_name' => 'kost feature testing',
             'facilities' => [1, 3, 2],
             'price' => 850000,
@@ -47,7 +47,7 @@ class CreateKostByOwnerTest extends TestCase
         ]);
 
         // act
-        $response = $this->post('/api/kost/owner', [
+        $response = $this->post('/api/owner/kost', [
             'kost_name' => 'kost feature testing',
             'facilities' => [1, 3, 2],
             'gender_id' => 3,
@@ -80,7 +80,7 @@ class CreateKostByOwnerTest extends TestCase
         ]);
 
         // act
-        $response = $this->post('/api/kost/owner', [
+        $response = $this->post('/api/owner/kost', [
             'kost_name' => 'kost feature testing',
             'facilities' => [1, 3, 2],
             'price' => 850000,
