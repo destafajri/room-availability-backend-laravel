@@ -11,4 +11,6 @@ interface KostRepository
 {
     public function saveNewKost(Kost $kost): void;
     public function findListKostByOwner(Request $request, Owner $owner): LengthAwarePaginator;
+    public function findAllKostListings(Request $request): LengthAwarePaginator;
+    public function findKostListingsByIds(Request $request): LengthAwarePaginator;
 }

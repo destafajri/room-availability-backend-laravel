@@ -27,6 +27,7 @@ Route::post('/register/tenant/regular', [UserAuthController::class, 'tenantRegul
 Route::post('/login', [UserAuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [UserAuthController::class, 'logout']);
 Route::post('/otp/verify', UserVerifyOtpController::class);
+Route::get('/kost', [KostController::class, 'listKost']);
 
 // protected owner route
 Route::group(['middleware' => ['auth:sanctum', 'checkRole:OWNER']], function () {

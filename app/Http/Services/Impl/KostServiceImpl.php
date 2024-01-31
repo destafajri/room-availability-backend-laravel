@@ -4,6 +4,7 @@ namespace App\Http\Services\Impl;
 
 use App\Exceptions\ApiException;
 use App\Http\Requests\Kost\CreateKostByOwnerRequest;
+use App\Http\Requests\Kost\GetListKostRequest;
 use App\Http\Resources\Kost\KostCollection;
 use App\Http\Services\KostService;
 use App\Models\Kost;
@@ -49,6 +50,14 @@ class KostServiceImpl implements KostService
     {
         $owner = $this->getCurrentAuthOwner($request);
         $kost = $this->kostRepository->findListKostByOwner($request, $owner);
+        return new KostCollection($kost);
+    }
+
+    public function listKost(GetListKostRequest $request): KostCollection
+    {
+        $kost = is_null($request->id)
+            ? $this->kostRepository->findAllKostListings($request)
+            : $this->kostRepository->findKostListingsByIds($request);
         return new KostCollection($kost);
     }
 

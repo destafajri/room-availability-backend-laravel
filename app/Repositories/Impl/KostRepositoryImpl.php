@@ -27,4 +27,29 @@ class KostRepositoryImpl implements KostRepository
             ->orderBy($sortBy, $sortOrder)
             ->paginate($perPage, ['*'], 'page', $page);
     }
+
+    public function findAllKostListings(Request $request): LengthAwarePaginator
+    {
+        $perPage = $request->query('per_page', 15); // Default to 15 per page
+        $page = $request->query('page', 1); // Default to page 1
+        $sortBy = $request->query('sortby', 'created_at'); // Default to sorting by created_at
+        $sortOrder = $request->query('sort_order', 'desc'); // Default to desc order
+
+        return Kost::with(['owner', 'kostGender', 'area', 'facilities'])
+            ->orderBy($sortBy, $sortOrder)
+            ->paginate($perPage, ['*'], 'page', $page);
+    }
+
+    public function findKostListingsByIds(Request $request): LengthAwarePaginator
+    {
+        $perPage = $request->query('per_page', 15); // Default to 15 per page
+        $page = $request->query('page', 1); // Default to page 1
+        $sortBy = $request->query('sortby', 'created_at'); // Default to sorting by created_at
+        $sortOrder = $request->query('sort_order', 'desc'); // Default to desc order
+
+        return Kost::with(['owner', 'kostGender', 'area', 'facilities'])
+            ->whereIn('id', $request->id)
+            ->orderBy($sortBy, $sortOrder)
+            ->paginate($perPage, ['*'], 'page', $page);
+    }
 }
