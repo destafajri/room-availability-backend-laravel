@@ -31,7 +31,7 @@ class GetListKostTest extends TestCase
         ]);
 
         // act
-        $response = $this->get('/api/owner/kost?per_page=2', [
+        $response = $this->get('/api/owner/kost?sort_order=desc', [
             'Authorization' => 'Bearer ' . $responseLogin['data']['token']
         ]);
 

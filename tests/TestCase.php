@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Models\User;
+use Database\Seeders\KostTestSeeder;
 use Database\Seeders\UserTestSeeder;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +30,7 @@ abstract class TestCase extends BaseTestCase
         $userOwner2 = User::withTrashed()->where('email', 'owner_tester_seeder2@gmail.com')->first();
         $userTenantPrime = User::withTrashed()->where('email', 'tenant_prime_tester_seeder@gmail.com')->first();
         $userTenantRegular = User::withTrashed()->where('email', 'tenant_regular_tester_seeder@gmail.com')->first();
+        $userTenantRegular2 = User::withTrashed()->where('email', 'tenant_regular_tester_seeder2@gmail.com')->first();
         if ($userOwner) {
             $userOwner->owner->delete();
             $userOwner->forceDelete();
@@ -45,7 +47,12 @@ abstract class TestCase extends BaseTestCase
             $userTenantRegular->tenant->delete();
             $userTenantRegular->forceDelete();
         }
+        if ($userTenantRegular2) {
+            $userTenantRegular2->tenant->delete();
+            $userTenantRegular2->forceDelete();
+        }
 
         $this->seed(UserTestSeeder::class);
+        $this->seed(KostTestSeeder::class);
     }
 }
