@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\Auth\UserVerifyOtpController;
 use App\Http\Controllers\Kost\KostController;
 use App\Http\Controllers\RoomAvailability\RoomAvailabilityController;
+use App\Http\Controllers\Search\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +31,7 @@ Route::middleware('auth:sanctum')->post('/logout', [UserAuthController::class, '
 Route::post('/otp/verify', UserVerifyOtpController::class);
 Route::get('/kost', [KostController::class, 'listKost']);
 Route::get('/kost/{id}', [KostController::class, 'detailKost']);
-
+Route::get('/search/kost', [SearchController::class, 'searchKost']);
 
 // protected owner route
 Route::group(['middleware' => ['auth:sanctum', 'checkRole:OWNER']], function () {

@@ -55,6 +55,16 @@ class AppServiceProvider extends ServiceProvider
 			\App\Http\Services\RoomAvailabilityService::class,
 			\App\Http\Services\Impl\RoomAvailabilityServiceImpl::class
 		);
+
+		$this->app->bind(
+			\App\Http\Services\SearchService::class,
+			\App\Http\Services\Impl\SearchServiceImpl::class
+		);
+
+		$this->app->bind(
+			\App\Repositories\AreaRepository::class,
+			\App\Repositories\Impl\AreaRepositoryImpl::class
+		);
 	}
 
 	/**

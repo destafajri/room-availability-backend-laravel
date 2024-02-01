@@ -5,6 +5,7 @@ namespace App\Repositories\Impl;
 use App\Models\Kost;
 use App\Models\Owner;
 use App\Repositories\KostRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -67,5 +68,15 @@ class KostRepositoryImpl implements KostRepository
     {
         return Kost::with('owner', 'kostGender', 'area', 'facilities')
             ->findOrFail($id);
+    }
+
+    public function searchKostWithMatchingKostName(string $searchKey): Collection
+    {
+        return Kost::where('kost_name', 'like', "%$searchKey%")->get();
+    }
+
+    public function searchKostInPriceRange(int $lowerPrice, int $upperPrice): Collection
+    {
+        return Kost::whereBetween('price', [$lowerPrice, $upperPrice])->get();
     }
 }
