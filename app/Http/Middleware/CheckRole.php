@@ -39,7 +39,7 @@ class CheckRole
         $token = PersonalAccessToken::findToken($tokenId);
         $userId = $token->tokenable_id;
         $user = User::find($userId);
-        Log::info('auth request by usernane is ' . $user->username . ' on ' . Carbon::now());
+        Log::info('auth request by usernane is ' . $user->phone_number . ' on ' . Carbon::now());
 
         return $next($request);
     }

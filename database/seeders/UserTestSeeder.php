@@ -32,6 +32,21 @@ class UserTestSeeder extends Seeder
         $owner->user_id = $user->id;
         $owner->save();
 
+        // owner 2
+        $user = new User();
+        $owner2 = new Owner();
+        $user->name = 'owner tester feature 2';
+        $user->phone_number = '08119787881';
+        $user->email = 'owner_tester_seeder2@gmail.com';
+        $user->role_id = 1;
+        $user->password = Hash::make('123456');
+        $user->email_verified_at = Carbon::now();
+        $user->save();
+
+        $user = User::withTrashed()->where('email', $user->email)->first();
+        $owner2->user_id = $user->id;
+        $owner2->save();
+
         // tenant prime
         $user = new User();
         $tenantPrime = new Tenant();

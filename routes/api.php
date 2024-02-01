@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\Auth\UserVerifyOtpController;
+use App\Http\Controllers\Kost\KostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -25,4 +27,15 @@ Route::post('/register/tenant/regular', [UserAuthController::class, 'tenantRegul
 Route::post('/login', [UserAuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [UserAuthController::class, 'logout']);
 Route::post('/otp/verify', UserVerifyOtpController::class);
+Route::get('/kost', [KostController::class, 'listKost']);
+Route::get('/kost/{id}', [KostController::class, 'detailKost']);
+
+
+// protected owner route
+Route::group(['middleware' => ['auth:sanctum', 'checkRole:OWNER']], function () {
+    Route::post('/owner/kost', [KostController::class, 'createKostByOwner']);
+    Route::get('/owner/kost', [KostController::class, 'listKostByOwner']);
+    Route::put('/owner/kost/{id}', [KostController::class, 'updateKostByOwner']);
+    Route::delete('/owner/kost/{id}', [KostController::class, 'deleteKostByOwner']);
+});
 

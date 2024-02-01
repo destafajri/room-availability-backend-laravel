@@ -3,9 +3,9 @@
 namespace Tests;
 
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Database\Seeders\UserTestSeeder;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\DB;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -25,20 +25,25 @@ abstract class TestCase extends BaseTestCase
         }
 
         // delete user from seeder
-        $owner = User::withTrashed()->where('email', 'owner_tester_seeder@gmail.com')->first();
-        $tenantPrime = User::withTrashed()->where('email', 'tenant_prime_tester_seeder@gmail.com')->first();
-        $tenantRegular = User::withTrashed()->where('email', 'tenant_regular_tester_seeder@gmail.com')->first();
-        if ($owner) {
-            DB::delete("DELETE FROM owners where user_id = ?", [$owner->id]);
-            DB::delete("DELETE FROM users where id = ?", [$owner->id]);
+        $userOwner = User::withTrashed()->where('email', 'owner_tester_seeder@gmail.com')->first();
+        $userOwner2 = User::withTrashed()->where('email', 'owner_tester_seeder2@gmail.com')->first();
+        $userTenantPrime = User::withTrashed()->where('email', 'tenant_prime_tester_seeder@gmail.com')->first();
+        $userTenantRegular = User::withTrashed()->where('email', 'tenant_regular_tester_seeder@gmail.com')->first();
+        if ($userOwner) {
+            $userOwner->owner->delete();
+            $userOwner->forceDelete();
         }
-        if ($tenantPrime) {
-            DB::delete("DELETE FROM tenants where user_id = ?", [$tenantPrime->id]);
-            DB::delete("DELETE FROM users where id = ?", [$tenantPrime->id]);
+        if ($userOwner2) {
+            $userOwner2->owner->delete();
+            $userOwner2->forceDelete();
         }
-        if ($tenantRegular) {
-            DB::delete("DELETE FROM tenants where user_id = ?", [$tenantRegular->id]);
-            DB::delete("DELETE FROM users where id = ?", [$tenantRegular->id]);
+        if ($userTenantPrime) {
+            $userTenantPrime->tenant->delete();
+            $userTenantPrime->forceDelete();
+        }
+        if ($userTenantRegular) {
+            $userTenantRegular->tenant->delete();
+            $userTenantRegular->forceDelete();
         }
 
         $this->seed(UserTestSeeder::class);
