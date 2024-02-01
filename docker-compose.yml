@@ -1,26 +1,54 @@
-version: '3.9'
+version: "3.9"
 
 services:
-  redis:
-    image: "redis:latest"
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis-certs:/certs
-      - ./redis.conf:/usr/local/etc/redis/redis.conf
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    laravel:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - .:/var/www/html
+        ports:
+            - "8000:8000"
+        environment:
+            - DB_HOST=mysql
+            - DB_DATABASE=laravel
+            - DB_PASSWORD=root_password
+            - REDIS_HOST=redis
+            - MAIL_HOST=mailhog
+            - MAIL_PORT=1025
 
-  mysql:
-    image: "mysql:8.0"
-    restart: always
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: laravel
-    volumes:
-      - mysql-data:/var/lib/mysql
+    redis:
+        image: "redis:latest"
+        container_name: redis-laravel
+        ports:
+            - "6379:6379"
+        volumes:
+            - redis-certs:/certs
+            - ./redis.conf:/usr/local/etc/redis/redis.conf
+        command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+
+    mysql:
+        image: "mysql:8.0"
+        container_name: mysql-laravel
+        restart: always
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root_password
+            MYSQL_DATABASE: laravel
+        volumes:
+            - mysql-data:/var/lib/mysql
+
+    mailhog:
+        image: mailhog/mailhog:latest
+        container_name: mailhog-laravel
+        ports:
+            - "1025:1025"
+            - "25:25"
+        volumes:
+            - mailhog-data:/data
 
 volumes:
-  redis-certs:
-  mysql-data:
+    redis-certs:
+    mysql-data:
+    mailhog-data:
