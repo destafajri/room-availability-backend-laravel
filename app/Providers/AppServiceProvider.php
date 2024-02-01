@@ -50,6 +50,11 @@ class AppServiceProvider extends ServiceProvider
 			\App\Repositories\KostFacilityRepository::class,
 			\App\Repositories\Impl\KostFacilityRepositoryImpl::class
 		);
+
+		$this->app->bind(
+			\App\Http\Services\RoomAvailabilityService::class,
+			\App\Http\Services\Impl\RoomAvailabilityServiceImpl::class
+		);
 	}
 
 	/**

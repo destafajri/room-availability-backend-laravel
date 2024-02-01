@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Impl;
 
+use App\Exceptions\ApiException;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Repositories\TenantRepository;
@@ -24,6 +25,15 @@ class TenantRepositoryImpl implements TenantRepository
         $tenant->user_id = $user->id;
         $tenant->is_prime = false;
         $tenant->credit = 20;
+        $tenant->save();
+    }
+
+    public function reduceTenantCredit(Tenant $tenant, int $pointReduction): void
+    {
+        if ($tenant->credit < $pointReduction) {
+            throw new ApiException("Credit is not enough, your credit is $tenant->credit", 422);
+        }
+        $tenant->credit -= $pointReduction;
         $tenant->save();
     }
 }
