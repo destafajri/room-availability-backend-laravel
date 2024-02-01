@@ -65,7 +65,7 @@ class KostServiceImpl implements KostService
 
     public function detailKost(Request $request): KostResource
     {
-        $id = ctype_digit($request->id) ? $request->id : throw new ApiException('Id Format Should be an Integer', 400);
+        $id = $this->requestHasValidIntegerId($request);
         $kost = $this->kostRepository->findKostDetailById($id);
         return new KostResource($kost);
     }
@@ -74,9 +74,7 @@ class KostServiceImpl implements KostService
     {
         DB::transaction(function () use ($request) {
             try {
-                $id = ctype_digit($request->id)
-                    ? $request->id
-                    : throw new ApiException('Id Format Should be an Integer', 400);
+                $id = $this->requestHasValidIntegerId($request);
                 $kost = $this->kostRepository->findKostDetailById($id);
                 $owner = $this->getCurrentAuthOwner($request);
                 $this->ensureOwnership($kost, $owner);
@@ -95,9 +93,7 @@ class KostServiceImpl implements KostService
     {
         DB::transaction(function () use ($request) {
             try {
-                $id = ctype_digit($request->id)
-                    ? $request->id
-                    : throw new ApiException('Id Format Should be an Integer', 400);
+                $id = $this->requestHasValidIntegerId($request);
                 $kost = $this->kostRepository->findKostDetailById($id);
                 $owner = $this->getCurrentAuthOwner($request);
                 $this->ensureOwnership($kost, $owner);
@@ -108,7 +104,6 @@ class KostServiceImpl implements KostService
             }
         });
     }
-
 
     private function getCurrentAuthOwner(Request $request): Owner
     {
@@ -157,5 +152,12 @@ class KostServiceImpl implements KostService
         if ($kost->owner_id != $owner->id) {
             throw new ApiException("You're Not Allowed to edit this kost", 403);
         }
+    }
+
+    private function requestHasValidIntegerId(Request $request): int
+    {
+        return ctype_digit($request->id)
+            ? $request->id
+            : throw new ApiException('Id Format Should be an Integer', 400);
     }
 }
