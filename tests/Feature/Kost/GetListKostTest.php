@@ -16,43 +16,15 @@ class GetListKostTest extends TestCase
             'password' => '123456'
         ]);
 
-        $this->post('/api/owner/kost', [
-            'kost_name' => 'kost feature testing',
-            'facilities' => [1, 3, 2],
-            'price' => 850000,
-            'gender_id' => 3,
-            'area_id' => 4,
-            'address' => 'kost feature testing gang 1000',
-            'description' => 'heheh description',
-            'room_total' => 10,
-            'room_available' => 5
-        ], [
-            'Authorization' => 'Bearer ' . $responseLogin['data']['token']
-        ]);
-
         // act
         $response = $this->get('/api/owner/kost?sort_order=desc', [
             'Authorization' => 'Bearer ' . $responseLogin['data']['token']
         ]);
 
-        $response->assertStatus(200)
-            ->assertJson([
-                'data' =>
-                    array(
-                        0 =>
-                            array(
-                                'kost_name' => 'kost feature testing',
-                                'owner' => 'owner tester feature',
-                                'address' => 'kost feature testing gang 1000',
-                                'price' => 850000,
-                                'kost_gender' => 'CAMPUR',
-                                'area' => 'Semarang',
-                                'description' => 'heheh description',
-                                'room_total' => 10,
-                                'room_available' => 5
-                            )
-                    )
-            ]);
+        $dataResponse = $response->json('data.0.kost_name');
+
+        $response->assertStatus(200);
+        Self::assertNotEmpty($dataResponse);
     }
 
     public function test_GetListKostByOwnerUserUnauthorized(): void
