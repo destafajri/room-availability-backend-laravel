@@ -17,7 +17,7 @@ Welcome to the Kost Room Availability Booking Platform, a Laravel backend applic
 -   [Technologies Used](#technologies-used)
 -   [Usage Instructions](#usage-instructions)
 -   [Getting Started](#getting-started)
--   [APIs and Authentication](#apis-and-authentication)
+-   [APIs List](#apis-lists)
 -   [Postman Collection](#postman-collection)
 -   [Database](#database-schema)
 
@@ -65,7 +65,8 @@ Welcome to the Kost Room Availability Booking Platform, a Laravel backend applic
 
 1. **User Registration:**
 
-    - Sign up as a regular or premium user to avail initial credits.
+    - Sign up as a regular or premium tenant to get initial credits.
+    - Open the mailhog to get otp verification.
 
 2. **Kost Search:**
 
@@ -77,7 +78,7 @@ Welcome to the Kost Room Availability Booking Platform, a Laravel backend applic
 
 4. **Owner Operations:**
 
-    - Owners can add and manage multiple kost listings using the Owner Dashboard.
+    - Owners can add and manage their kost list.
 
 5. **Scheduled Credit Recharge:**
     - User credits are automatically recharged at the beginning of each month.
@@ -103,7 +104,7 @@ cd room-availability-backend-laravel
 2. Build and start the Docker containers:
 
 ```bash
-    docker-compose up --build
+docker-compose up --build
 ```
 
 3. Install Laravel dependencies:
@@ -115,24 +116,24 @@ docker-compose exec laravel composer install
 4. Run database migrations and seed:
 
 ```bash
-    docker-compose exec laravel php artisan migrate --seed
+docker-compose exec laravel php artisan migrate --seed
 ```
 
 5. Run queue woker:
 
 ```bash
-    docker-compose exec laravel php artisan queue:work
+docker-compose exec laravel php artisan queue:work
 ```
 
 6. Run the scheduller task:
 
 ```bash
-    docker-compose exec app php artisan schedule:run
+docker-compose exec app php artisan schedule:run
 ```
 
 7. To Access this project you can use this [http://localhost:8000/](http://localhost:8000/) and for mailhog to receive the otp, you can visit this [http://localhost:8025/](http://localhost:8025/).
 
-## APIs Specs
+## APIs List
 
 | Name                    | Method | URL                                      | Token Required |
 | ----------------------- | ------ | ---------------------------------------- | -------------- |
