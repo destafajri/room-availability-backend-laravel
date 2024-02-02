@@ -146,17 +146,18 @@ docker-compose exec laravel composer install
 | Update Kost By Owner    | PUT    | {{base_url}}/api/owner/kost/:id          | Yes            |
 | Delete Kost By Owner    | DELETE | {{base_url}}/api/owner/kost/:id          | Yes            |
 | List Kost By Owner      | GET    | {{base_url}}/api/owner/kost?per_page=1   | Yes            |
-| List Kost               | GET    | {{base_url}}/api/kost?per_page=10        | Yes            |
+| List Kost               | GET    | {{base_url}}/api/kost?per_page=10        | No             |
 | Detail Kost             | GET    | {{base_url}}/api/kost/:id                | No             |
-| Ask Room                | POST   | {{base_url}}/api/ko                      |
+| Ask Room                | POST   | {{base_url}}/api/ko                      | Yes            |
 
 ## Postman Collection
+
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://www.postman.com/gold-station-218460/workspace/room-availability-apps-laravel/collection/22138766-e2420475-a461-47e5-ab4f-0095ca9f6fac?action=share&creator=22138766)
 
 ## Database Schema
+
 ![Database](storage/images/database-design.png)
 
 ## Contributors
 
 [![GitHub contributors](https://img.shields.io/github/contributors/destafajri/room-availability-backend-laravel)](https://github.com/destafajri/room-availability-backend-laravel/graphs/contributors)
-
