@@ -130,7 +130,7 @@ docker-compose exec laravel composer install
     docker-compose exec app php artisan schedule:run
 ```
 
-7. To Access this project you can use this [http://localhost:8000/](http://localhost:8000/) and for mailhog to receive the otp, you can visit this http://localhost:8025/[http://localhost:8025/].
+7. To Access this project you can use this [http://localhost:8000/](http://localhost:8000/) and for mailhog to receive the otp, you can visit this [http://localhost:8025/](http://localhost:8025/).
 
 ## APIs Specs
 
