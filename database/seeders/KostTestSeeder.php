@@ -137,7 +137,7 @@ class KostTestSeeder extends Seeder
         $kost->owner_id = $user->owner->id;
         $kost->description = "kost feature testing gang 1000 description banteng syariah 5";
         $kost->address = "kost feature testing gang 1000 syariah ";
-        $kost->price = 5000000;
+        $kost->price = 5100000;
         $kost->room_total = 10;
         $kost->room_available = 2;
         $kost->kost_gender_id = 3;
@@ -150,7 +150,7 @@ class KostTestSeeder extends Seeder
         $kost->owner_id = $user->owner->id;
         $kost->description = "kost feature testing gang 1000 description banteng syariah 6";
         $kost->address = "kost feature testing gang 1000 syariah ";
-        $kost->price = 5000000;
+        $kost->price = 5200000;
         $kost->room_total = 10;
         $kost->room_available = 2;
         $kost->kost_gender_id = 3;
@@ -163,7 +163,7 @@ class KostTestSeeder extends Seeder
         $kost->owner_id = $user->owner->id;
         $kost->description = "kost feature testing gang 1000 description banteng syariah 7";
         $kost->address = "kost feature testing gang 1000 syariah ";
-        $kost->price = 5000000;
+        $kost->price = 4900000;
         $kost->room_total = 10;
         $kost->room_available = 2;
         $kost->kost_gender_id = 3;
@@ -176,7 +176,7 @@ class KostTestSeeder extends Seeder
         $kost->owner_id = $user->owner->id;
         $kost->description = "kost feature testing gang 1000 description banteng syariah 8";
         $kost->address = "kost feature testing gang 1000 syariah ";
-        $kost->price = 5000000;
+        $kost->price = 4800000;
         $kost->room_total = 10;
         $kost->room_available = 2;
         $kost->kost_gender_id = 3;
@@ -189,7 +189,7 @@ class KostTestSeeder extends Seeder
         $kost->owner_id = $user->owner->id;
         $kost->description = "kost feature testing gang 1000 description banteng syariah 9";
         $kost->address = "kost feature testing gang 1000 syariah ";
-        $kost->price = 5000000;
+        $kost->price = 4700000;
         $kost->room_total = 10;
         $kost->room_available = 2;
         $kost->kost_gender_id = 3;
@@ -202,7 +202,7 @@ class KostTestSeeder extends Seeder
         $kost->owner_id = $user->owner->id;
         $kost->description = "kost feature testing gang 1000 description banteng syariah 10";
         $kost->address = "kost feature testing gang 1000 syariah ";
-        $kost->price = 5000000;
+        $kost->price = 46000000;
         $kost->room_total = 10;
         $kost->room_available = 2;
         $kost->kost_gender_id = 3;
@@ -215,7 +215,7 @@ class KostTestSeeder extends Seeder
         $kost->owner_id = $user->owner->id;
         $kost->description = "kost feature testing gang 1100 description banteng syariah 11";
         $kost->address = "kost feature testing gang 1100 syariah ";
-        $kost->price = 5000000;
+        $kost->price = 4400000;
         $kost->room_total = 11;
         $kost->room_available = 2;
         $kost->kost_gender_id = 3;
@@ -228,7 +228,7 @@ class KostTestSeeder extends Seeder
         $kost->owner_id = $user->owner->id;
         $kost->description = "kost feature testing gang 1200 description banteng syariah 12";
         $kost->address = "kost feature testing gang 1200 syariah ";
-        $kost->price = 5000000;
+        $kost->price = 4950000;
         $kost->room_total = 12;
         $kost->room_available = 2;
         $kost->kost_gender_id = 3;
@@ -241,7 +241,7 @@ class KostTestSeeder extends Seeder
         $kost->owner_id = $user->owner->id;
         $kost->description = "kost feature testing gang 1300 description banteng syariah 13";
         $kost->address = "kost feature testing gang 1300 syariah ";
-        $kost->price = 5000000;
+        $kost->price = 4850000;
         $kost->room_total = 13;
         $kost->room_available = 2;
         $kost->kost_gender_id = 3;
@@ -254,7 +254,7 @@ class KostTestSeeder extends Seeder
         $kost->owner_id = $user->owner->id;
         $kost->description = "kost feature testing gang 1400 description banteng syariah 14";
         $kost->address = "kost feature testing gang 1400 syariah ";
-        $kost->price = 5000000;
+        $kost->price = 4730000;
         $kost->room_total = 14;
         $kost->room_available = 2;
         $kost->kost_gender_id = 3;
@@ -267,7 +267,7 @@ class KostTestSeeder extends Seeder
         $kost->owner_id = $user->owner->id;
         $kost->description = "kost feature testing gang 1500 description banteng syariah 15";
         $kost->address = "kost feature testing gang 1500 syariah ";
-        $kost->price = 5000000;
+        $kost->price = 4770000;
         $kost->room_total = 15;
         $kost->room_available = 2;
         $kost->kost_gender_id = 3;

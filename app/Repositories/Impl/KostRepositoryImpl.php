@@ -72,11 +72,17 @@ class KostRepositoryImpl implements KostRepository
 
     public function searchKostWithMatchingKostName(string $searchKey): Collection
     {
-        return Kost::where('kost_name', 'like', "%$searchKey%")->get();
+        return Kost::whereFullText('kost_name', "%$searchKey%")
+            ->orderBy('price', 'desc')
+            ->limit(10)
+            ->get();
     }
 
     public function searchKostInPriceRange(int $lowerPrice, int $upperPrice): Collection
     {
-        return Kost::whereBetween('price', [$lowerPrice, $upperPrice])->get();
+        return Kost::whereBetween('price', [$lowerPrice, $upperPrice])
+            ->orderBy('price', 'desc')
+            ->limit(10)
+            ->get();
     }
 }
