@@ -7,5 +7,5 @@ use Illuminate\Http\Request;
 
 interface SearchService
 {
-    public function searchKost(Request $request): SearchResource;
+    public function searchSugesstionKost(Request $request): SearchResource;
 }
