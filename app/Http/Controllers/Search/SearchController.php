@@ -16,8 +16,8 @@ class SearchController extends Controller
         $this->searchService = $searchService;
     }
 
-    public function searchKost(Request $request): JsonResource
+    public function searchSugesstionKost(Request $request): JsonResource
     {
-        return $this->searchService->searchKost($request);
+        return $this->searchService->searchSugesstionKost($request);
     }
 }

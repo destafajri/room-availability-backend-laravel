@@ -23,7 +23,7 @@ class SearchServiceImpl implements SearchService
         $this->areaRepository = $areaRepository;
     }
 
-    public function searchKost(Request $request): SearchResource
+    public function searchSugesstionKost(Request $request): SearchResource
     {
         $searchKey = $this->validateAndExtractSearchKey($request);
         if (!$searchKey) {
