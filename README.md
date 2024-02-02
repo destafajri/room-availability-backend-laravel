@@ -17,7 +17,7 @@ Welcome to the Kost Room Availability Booking Platform, a Laravel backend applic
 -   [Technologies Used](#technologies-used)
 -   [Usage Instructions](#usage-instructions)
 -   [Getting Started](#getting-started)
--   [APIs List](#apis-lists)
+-   [APIs List](#apis-list)
 -   [Postman Collection](#postman-collection)
 -   [Database](#database-schema)
 
