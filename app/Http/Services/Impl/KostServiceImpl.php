@@ -65,7 +65,7 @@ class KostServiceImpl implements KostService
 
     public function detailKost(Request $request): KostResource
     {
-        $id = $this->requestHasValidIntegerId($request);
+        $id = $this->validateRequestIdAsInteger($request);
         $kost = $this->kostRepository->findKostDetailById($id);
         return new KostResource($kost);
     }
@@ -74,7 +74,7 @@ class KostServiceImpl implements KostService
     {
         DB::transaction(function () use ($request) {
             try {
-                $id = $this->requestHasValidIntegerId($request);
+                $id = $this->validateRequestIdAsInteger($request);
                 $kost = $this->kostRepository->findKostDetailById($id);
                 $owner = $this->getCurrentAuthOwner($request);
                 $this->ensureOwnership($kost, $owner);
@@ -93,7 +93,7 @@ class KostServiceImpl implements KostService
     {
         DB::transaction(function () use ($request) {
             try {
-                $id = $this->requestHasValidIntegerId($request);
+                $id = $this->validateRequestIdAsInteger($request);
                 $kost = $this->kostRepository->findKostDetailById($id);
                 $owner = $this->getCurrentAuthOwner($request);
                 $this->ensureOwnership($kost, $owner);
@@ -154,7 +154,7 @@ class KostServiceImpl implements KostService
         }
     }
 
-    private function requestHasValidIntegerId(Request $request): int
+    private function validateRequestIdAsInteger(Request $request): int
     {
         return ctype_digit($request->id)
             ? $request->id
