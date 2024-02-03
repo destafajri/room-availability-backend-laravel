@@ -34,6 +34,7 @@ class KostRepositoryImpl implements KostRepository
         $sortOrder = $request->query('sort_order', 'desc'); // Default to desc order
 
         return Kost::withoutGlobalScope(\App\Models\Scopes\IsActiveScope::class)
+            ->where('owner_id', $owner->id)
             ->with(['owner', 'kostGender', 'area', 'facilities'])
             ->orderBy($sortBy, $sortOrder)
             ->paginate($perPage, ['*'], 'page', $page);
