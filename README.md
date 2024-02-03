@@ -128,7 +128,7 @@ docker-compose exec laravel php artisan queue:work
 6. Run the scheduller task:
 
 ```bash
-docker-compose exec app php artisan schedule:run
+docker-compose exec laravel php artisan schedule:run
 ```
 
 7. To Access this project you can use this [http://localhost:8000/](http://localhost:8000/) and for mailhog to receive the otp, you can visit this [http://localhost:8025/](http://localhost:8025/).
@@ -149,7 +149,7 @@ docker-compose exec app php artisan schedule:run
 | List Kost By Owner      | GET    | {{base_url}}/api/owner/kost?per_page=1   | Yes            |
 | List Kost               | GET    | {{base_url}}/api/kost?per_page=10        | No             |
 | Detail Kost             | GET    | {{base_url}}/api/kost/:id                | No             |
-| Ask Room                | POST   | {{base_url}}/api/ko                      | Yes            |
+| Ask Room                | POST   | {{base_url}}/api/kost/:id/ask-room       | Yes            |
 
 ## Postman Collection
 
