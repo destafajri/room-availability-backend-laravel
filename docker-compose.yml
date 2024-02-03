@@ -6,7 +6,7 @@ services:
             context: .
             dockerfile: Dockerfile
         volumes:
-            - .:/var/www/html
+            - laravel-data:/var/www/html
         ports:
             - "8000:8000"
         expose:
@@ -65,3 +65,4 @@ volumes:
     redis-certs:
     mysql-data:
     mailhog-data:
+    laravel-data:
