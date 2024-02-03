@@ -9,10 +9,23 @@ services:
             - .:/var/www/html
         ports:
             - "8000:8000"
+        expose:
+            - "8000"
         environment:
+            - APP_NAME=Laravel
+            - APP_KEY=base64:wQo+tBs7PUkwOTu9MlK5R7EAV5pSPifrKEV7dvU7E9c=
+            - APP_DEBUG=true
+            - DB_CONNECTION=mysql
             - DB_HOST=mysql
+            - DB_PORT=3306
             - DB_DATABASE=laravel
+            - DB_USERNAME=root
             - DB_PASSWORD=root_password
+            - BROADCAST_DRIVER=log
+            - CACHE_DRIVER=file
+            - QUEUE_CONNECTION=redis
+            - SESSION_DRIVER=file
+            - SESSION_LIFETIME=120
             - REDIS_HOST=redis
             - MAIL_HOST=mailhog
             - MAIL_PORT=1025
