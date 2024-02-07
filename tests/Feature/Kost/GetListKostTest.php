@@ -23,8 +23,26 @@ class GetListKostTest extends TestCase
 
         $dataResponse = $response->json('data.0.kost_name');
 
-        $response->assertStatus(200);
-        Self::assertNotEmpty($dataResponse);
+        $response->assertStatus(200)->assertJson([
+            'data' =>
+                array(
+                    0 =>
+                        array(
+                            'kost_name' => 'kost feature testing 1',
+                            'owner' => 'owner tester feature',
+                            'price' => 5000000,
+                            'address' => 'kost feature testing gang 1000 ahok',
+                            'description' => 'kost feature testing gang 1000 description',
+                            'room_total' => 10,
+                            'is_active' => 1,
+                            'kost_gender' => 'CAMPUR',
+                            'area' => 'Jakarta Pusat',
+                            'room_total' => 10,
+                            'room_available' => 2
+                        )
+                )
+        ]);
+        self::assertNotEmpty($dataResponse);
     }
 
     public function test_GetListKostByOwnerUserUnauthorized(): void
