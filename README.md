@@ -104,31 +104,31 @@ cd room-availability-backend-laravel
 2. Build and start the Docker containers:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 3. Install Laravel dependencies:
 
 ```bash
-docker-compose exec laravel composer install
+docker compose exec laravel composer install
 ```
 
 4. Run database migrations and seed:
 
 ```bash
-docker-compose exec laravel php artisan migrate --seed
+docker compose exec laravel php artisan migrate --seed
 ```
 
 5. Run queue woker:
 
 ```bash
-docker-compose exec laravel php artisan queue:work
+docker compose exec laravel php artisan queue:work &
 ```
 
 6. Run the scheduller task:
 
 ```bash
-docker-compose exec laravel php artisan schedule:run
+docker compose exec laravel php artisan schedule:run &
 ```
 
 7. To Access this project you can use this [http://localhost:8000/](http://localhost:8000/) and for mailhog to receive the otp, you can visit this [http://localhost:8025/](http://localhost:8025/).
