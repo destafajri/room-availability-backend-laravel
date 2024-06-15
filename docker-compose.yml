@@ -41,7 +41,7 @@ services:
         command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
 
     mysql:
-        image: "mysql:8.0"
+        image: "mysql:5.7"
         container_name: mysql-laravel
         restart: always
         ports:
